@@ -177,8 +177,8 @@ public class GamePanel extends JPanel {
                                                                                                     // all'interno del
                                                                                                     // suo
                                                                                                     // raggio di ricerca
-            ant.setxGoal(xBase);
-            ant.setyGoal(yBase);
+            ant.setxGoal(xBase + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
+            ant.setyGoal(yBase + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
         } else {
             FindBestToHomeDot(ant); // ? Trovo il punto per casa più vicino alla casa
         }
