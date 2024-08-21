@@ -5,7 +5,7 @@ public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final static int FPSGoal = 120;
+    private final static int FPSGoal = 60;
 
     public Game() {
         gamePanel = new GamePanel();
@@ -41,7 +41,8 @@ public class Game implements Runnable {
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames);
+                // ! System.out.println("FPS: " + frames); togliere il commento se si vuole
+                // ! vedere il numero di FPS
                 frames = 0;
             }
         }
