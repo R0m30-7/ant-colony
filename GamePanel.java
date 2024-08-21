@@ -24,6 +24,8 @@ public class GamePanel extends JPanel {
 
     private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 150; // ? Numero massimo di pallini per ogni lista
+    private int randXAdder = 0; // ? Con queste due variabili aggiungo un valore casuale compreso
+    private int randYAdder = 0; // ? tra -5 e 5 alle coordinate del punto da seguire
 
     int cicli = 0;
 
@@ -54,6 +56,10 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) { // Scrivo in questo void le cose che voglio disegnare
         super.paintComponent(g);
+        /*
+         * randXAdder = rand.nextInt(10) - 5;
+         * randYAdder = rand.nextInt(10) - 5;
+         */
 
         g.setColor(Color.YELLOW);
         g.fillOval(xBase, yBase, 4, 4); // ? In queste due righe disegno l'uscita del formicaio
@@ -193,7 +199,6 @@ public class GamePanel extends JPanel {
                 break;
             } else if (i == food.size() - 1) {
                 FindClosestFood(ant); // ? Trovo il punto per cibo più vicino alla formica
-
             }
         }
     }
@@ -219,8 +224,8 @@ public class GamePanel extends JPanel {
                 toCibo.remove(index); // Stesso discorso per quanto riguarda FindBestToHomeDot() riguardo la rimozione
                                       // dei punti invece di farli evitare
             }
-            ant.setxGoal(x + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
-            ant.setyGoal(y + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
+            ant.setxGoal(x + randXAdder); // ? Con questi due rand aggiungo un po' di
+            ant.setyGoal(y + randYAdder); // ? randomicità nel movimento delle formiche
         }
     }
 
@@ -248,8 +253,8 @@ public class GamePanel extends JPanel {
                 toCasa.remove(index); // Io preferirei non eliminare il punto che punta a casa ma semplicemente
             } // farlo ignorare a questa formica, ma non so come fare senza usare un'altra
               // lista
-            ant.setxGoal(x + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
-            ant.setyGoal(y + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
+            ant.setxGoal(x + randXAdder); // ? Con questi due rand aggiungo un po' di
+            ant.setyGoal(y + randYAdder); // ? randomicità nel movimento delle formiche
         }
     }
 
