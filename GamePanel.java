@@ -56,10 +56,6 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) { // Scrivo in questo void le cose che voglio disegnare
         super.paintComponent(g);
-        /*
-         * randXAdder = rand.nextInt(10) - 5;
-         * randYAdder = rand.nextInt(10) - 5;
-         */
 
         g.setColor(Color.YELLOW);
         g.fillOval(xBase, yBase, 4, 4); // ? In queste due righe disegno l'uscita del formicaio
@@ -80,6 +76,9 @@ public class GamePanel extends JPanel {
         }
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
+
+            randXAdder = rand.nextInt(10) - 5;
+            randYAdder = rand.nextInt(10) - 5;
 
             for (int i = 0; i < Formiche.size(); i++) { // ? Itero per ogni formica
                 ant = Formiche.get(i);
