@@ -177,8 +177,8 @@ public class GamePanel extends JPanel {
                                                                                                     // all'interno del
                                                                                                     // suo
                                                                                                     // raggio di ricerca
-            ant.setxGoal(xBase + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
-            ant.setyGoal(yBase + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
+            ant.setxGoal(xBase);
+            ant.setyGoal(yBase);
         } else {
             FindBestToHomeDot(ant); // ? Trovo il punto per casa più vicino alla casa
         }
@@ -216,10 +216,11 @@ public class GamePanel extends JPanel {
 
         if (x != panelWidth && y != panelHeight) {
             if (ant.getX() == x && ant.getY() == y) {
-                toCibo.remove(index); // Stesso discorso per quanto riguarda FindBestToHomeDot()
+                toCibo.remove(index); // Stesso discorso per quanto riguarda FindBestToHomeDot() riguardo la rimozione
+                                      // dei punti invece di farli evitare
             }
-            ant.setxGoal(x);
-            ant.setyGoal(y);
+            ant.setxGoal(x + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
+            ant.setyGoal(y + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
         }
     }
 
@@ -242,13 +243,13 @@ public class GamePanel extends JPanel {
             }
         }
 
-        if (x != panelWidth && y != panelHeight) { // TODO Meglio l'if per non considerare punti già utilizzati
-            if (ant.getX() == x && ant.getY() == y) {
+        if (x != panelWidth && y != panelHeight) {
+            if (ant.getX() == x && ant.getY() == y) { // TODO Meglio l'if per non considerare punti già utilizzati
                 toCasa.remove(index); // Io preferirei non eliminare il punto che punta a casa ma semplicemente
             } // farlo ignorare a questa formica, ma non so come fare senza usare un'altra
               // lista
-            ant.setxGoal(x);
-            ant.setyGoal(y);
+            ant.setxGoal(x + rand.nextInt(10) - 5); // ? Con questi due rand aggiungo un po' di
+            ant.setyGoal(y + rand.nextInt(10) - 5); // ? randomicità nel movimento delle formiche
         }
     }
 
