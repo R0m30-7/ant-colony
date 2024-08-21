@@ -12,6 +12,7 @@ public class Game implements Runnable {
         gameWindow = new GameWindow(gamePanel);
 
         gamePanel.requestFocus();
+        gamePanel.addMouseListener(new MouseInput()); // ? Aggiungo il mouse listener al gamePanel
         startGameLoop();
     }
 
