@@ -41,9 +41,9 @@ public class GamePanel extends JPanel {
 
         this.setBackground(Color.DARK_GRAY);
         // * Genero il cibo
-        for (int i = 0; i < 100; i++) {
-            food.add(new Punto(500, 500 + i, false));
-        }
+        // for (int i = 0; i < 100; i++) {
+        food.add(new Punto(1100, 200, false));
+        // }
 
     }
 
@@ -86,7 +86,8 @@ public class GamePanel extends JPanel {
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
                     if (ant.getX() == food.get(j).getX() && ant.getY() == food.get(j).getY()) {
                         ant.SetHasFood(true);
-                        food.remove(j);
+                        // ! Qui decido se avere cibo infinito o meno
+                        // food.remove(j);
                     }
                 }
 
