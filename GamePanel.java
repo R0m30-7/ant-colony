@@ -94,6 +94,9 @@ public class GamePanel extends JPanel {
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
                     // TODO Potrei fare che la formica genera un punto al cibo solo quando segue i
                     // TODO punti rossi
+
+                    // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto
+                    // TODO sulle stesse coordinate)
                     toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
                     // punto che punta al cibo
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
