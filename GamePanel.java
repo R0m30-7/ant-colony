@@ -40,11 +40,10 @@ public class GamePanel extends JPanel {
         setPanelSize();
 
         this.setBackground(Color.DARK_GRAY);
-        food.add(new Punto(250, 250, false)); // * Genero il cibo, in questo caso sono 4 unità
-        food.add(new Punto(500, 500, false));
-
-        food.add(new Punto(251, 251, false));
-        food.add(new Punto(501, 501, false));
+        // * Genero il cibo
+        for (int i = 0; i < 100; i++) {
+            food.add(new Punto(500, 500 + i, false));
+        }
 
     }
 
@@ -81,7 +80,7 @@ public class GamePanel extends JPanel {
 
                 if (ant.getX() == xBase && ant.getY() == yBase && ant.getHasFood()) {
                     Formiche.remove(ant); // ? Rimuovo la formica se si trova sul formicaio con del cibo
-                    GenerateFood(); // ? Genero altro cibo
+                    // GenerateFood(); // ? Genero del cibo in posizione randomica
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
@@ -92,7 +91,9 @@ public class GamePanel extends JPanel {
                 }
 
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
-                    // ! toCibo.add(new Punto(ant.getX(), ant.getY(), false)); //? Aggiungo un nuovo
+                    // TODO Potrei fare che la formica genera un punto al cibo solo quando segue i
+                    // TODO punti rossi
+                    toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
                     // punto che punta al cibo
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
                         toCibo.remove(0);
@@ -195,6 +196,7 @@ public class GamePanel extends JPanel {
 
     private void FindClosestFood(Formica ant) {
         int x = panelWidth, y = panelHeight;
+        int index = 0;
         double min = panelWidth * panelHeight;
 
         for (int i = 0; i < toCibo.size(); i++) {
@@ -203,11 +205,15 @@ public class GamePanel extends JPanel {
                     min = toCibo.get(i).getIntensity();
                     x = (int) toCibo.get(i).getX();
                     y = (int) toCibo.get(i).getY();
+                    index = i;
                 }
             }
         }
 
         if (x != panelWidth && y != panelHeight) {
+            if (ant.getX() == x && ant.getY() == y) {
+                toCibo.remove(index); // Stesso discorso per quanto riguarda FindBestToHomeDot()
+            }
             ant.setxGoal(x);
             ant.setyGoal(y);
         }
