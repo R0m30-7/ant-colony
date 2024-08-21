@@ -42,11 +42,6 @@ public class GamePanel extends JPanel {
         setPanelSize();
 
         this.setBackground(Color.DARK_GRAY);
-        // * Genero il cibo
-        // for (int i = 0; i < 100; i++) {
-        food.add(new Punto(1100, 200, false));
-        // }
-
     }
 
     private void setPanelSize() {
@@ -92,7 +87,7 @@ public class GamePanel extends JPanel {
                     if (ant.getX() == food.get(j).getX() && ant.getY() == food.get(j).getY()) {
                         ant.SetHasFood(true);
                         // ! Qui decido se avere cibo infinito o meno
-                        // food.remove(j);
+                        food.remove(j);
                     }
                 }
 
