@@ -7,6 +7,9 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final static int FPSGoal = 60;
 
+    private static int xLoc = 0; // ? Mi dice le coordinate del punto in
+    private static int yLoc = 0; // ? alto a sinistra del gamePanel
+
     public Game() {
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
@@ -45,11 +48,22 @@ public class Game implements Runnable {
                 // ! System.out.println("FPS: " + frames); togliere il commento se si vuole
                 // ! vedere il numero di FPS
                 frames = 0;
+
+                xLoc = (int) gamePanel.getLocationOnScreen().getX(); // ? Mi dice le coordinate del punto in
+                yLoc = (int) gamePanel.getLocationOnScreen().getY(); // ? alto a sinistra del gamePanel
             }
         }
     }
 
     public static int getFPSGoal() {
         return FPSGoal;
+    }
+
+    public static int getxLoc() {
+        return xLoc;
+    }
+
+    public static int getyLoc() {
+        return yLoc;
     }
 }
