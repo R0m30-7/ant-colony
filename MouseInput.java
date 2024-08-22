@@ -29,12 +29,10 @@ public class MouseInput implements MouseListener {
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
 
-        int x = (int) MouseInfo.getPointerInfo().getLocation().getX();
-        int y = (int) MouseInfo.getPointerInfo().getLocation().getY();
+        int mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
+        int mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
 
-        GamePanel.food.add(
-                new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2,
-                        false));
+        GamePanel.food.add(new Punto(mouseX, mouseY, false));
 
         /*
          * System.out.println("x mouse: " + x + ", y mouse: " + y + "\nfixed x: " + (x -
