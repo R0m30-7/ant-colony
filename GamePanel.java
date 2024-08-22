@@ -73,9 +73,9 @@ public class GamePanel extends JPanel {
 
         // ? Disegno un cerchio bianco intorno al mouse
         g.setColor(Color.WHITE);
-        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
-        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
-        g.drawOval(mouseX, mouseY, antRadius, antRadius);
+        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
+        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
+        g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
 
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {

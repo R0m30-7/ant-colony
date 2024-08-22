@@ -18,6 +18,9 @@ import java.awt.MouseInfo;
 
 public class MouseInput implements MouseInputListener, MouseWheelListener {
 
+    private static int mouseCircleRadius = GamePanel.antRadius;
+    private int multiplier = 1;
+
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -27,7 +30,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             int x = (int) MouseInfo.getPointerInfo().getLocation().getX();
             int y = (int) MouseInfo.getPointerInfo().getLocation().getY();
 
-            GamePanel.food.add(new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2, false));
+            GamePanel.food.add(new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2, false));   //! Questo è provvisorio
         }
     }
 
@@ -38,7 +41,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         int x = (int) MouseInfo.getPointerInfo().getLocation().getX();
         int y = (int) MouseInfo.getPointerInfo().getLocation().getY();
 
-        GamePanel.food.add(new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2, false));
+        GamePanel.food.add(new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2, false));   //! Questo è provvisorio
 
         // System.out.println("x mouse: " + x + ", y mouse: " + y + "\nfixed x: " + (x - Game.getxLoc()) + ", fixed y: " + (y - Game.getyLoc()) + "\nx loc: " + Game.getxLoc() + "\ny loc: " + Game.getyLoc() + "\n");
     }
@@ -46,8 +49,18 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         // TODO Auto-generated method stub
+        int rot = e.getWheelRotation();
 
-        System.out.println(e.getWheelRotation());
+        //? Il multiplier deve essere >= 1 e <= 7
+        if(multiplier == 1 && rot == 1 || multiplier == 7 && rot == -1){
+            return;
+        }
+        multiplier -= e.getWheelRotation();
+        mouseCircleRadius = GamePanel.antRadius * multiplier;
+    }
+
+    public static int getMouseCircleRadius() {
+        return mouseCircleRadius;
     }
 
     @Override
