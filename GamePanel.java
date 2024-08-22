@@ -77,6 +77,7 @@ public class GamePanel extends JPanel {
         mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
         g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
 
+        //? Disegno il cibo
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
             g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
