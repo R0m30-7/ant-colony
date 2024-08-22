@@ -260,6 +260,9 @@ public class GamePanel extends JPanel {
         }
 
         g.setColor(Color.BLUE);
+        if (food.size() == 0 && toCibo.size() != 0) { // ? Se non c'è cibo e ci sono punti blu, azzero i punti blu
+            toCibo.clear();
+        }
         for (int i = 0; i < toCibo.size(); i++) {
             g.fillOval((int) toCibo.get(i).getX(), (int) toCibo.get(i).getY(), antRadius, antRadius);
         }
