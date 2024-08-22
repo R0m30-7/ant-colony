@@ -17,6 +17,7 @@ public class Game implements Runnable {
         gamePanel.requestFocus();
         gamePanel.addMouseMotionListener(new MouseInput()); // ? Aggiungo il mouse motion listener al gamePanel
         gamePanel.addMouseListener(new MouseInput()); // ? Aggiungo il mouse listener al gamePanel
+        gamePanel.addMouseWheelListener(new MouseInput());  //? Aggiungo il wheel listener al gamePanel
         startGameLoop();
     }
 
