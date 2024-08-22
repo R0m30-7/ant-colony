@@ -2,9 +2,11 @@ package Formiche;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.MouseInfo;
 
-public class MouseInput implements MouseListener {
+public class MouseInput implements MouseListener, MouseWheelListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -48,4 +50,10 @@ public class MouseInput implements MouseListener {
 
     }
 
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        // TODO Auto-generated method stub
+        // ! Non ho la minima idea di come funzioni sto coso quindi mi devo guardare un
+        // ! tutorial
+    }
 }
