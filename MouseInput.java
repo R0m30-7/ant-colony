@@ -1,6 +1,8 @@
 package Formiche;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.event.MouseInputListener;
 
@@ -14,7 +16,7 @@ import java.awt.MouseInfo;
  * 3 - Tasto destro
  */
 
-public class MouseInput implements MouseInputListener {
+public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -40,6 +42,22 @@ public class MouseInput implements MouseInputListener {
 
         System.out.println("x mouse: " + x + ", y mouse: " + y + "\nfixed x: " + (x - Game.getxLoc()) + ", fixed y: " + (y - Game.getyLoc()) + "\nx loc: " + Game.getxLoc() + "\ny loc: " + Game.getyLoc() + "\n");
     }
+    
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -58,16 +76,4 @@ public class MouseInput implements MouseInputListener {
         // TODO Auto-generated method stub
 
     }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-
 }
