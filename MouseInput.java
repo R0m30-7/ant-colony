@@ -47,14 +47,25 @@ public class MouseInput implements MouseInputListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         // TODO Auto-generated method stub
-        System.out.println("Mouse dragged");
 
+        int x = (int) MouseInfo.getPointerInfo().getLocation().getX();
+        int y = (int) MouseInfo.getPointerInfo().getLocation().getY();
+
+        GamePanel.food.add(
+                new Punto(x - Game.getxLoc() - GamePanel.antRadius / 2, y - Game.getyLoc() - GamePanel.antRadius / 2,
+                        false));
+
+        /*
+         * System.out.println("x mouse: " + x + ", y mouse: " + y + "\nfixed x: " + (x -
+         * Game.getxLoc()) + ", fixed y: "
+         * + (y - Game.getyLoc()) + "\nx loc: " + Game.getxLoc() + "\ny loc: " +
+         * Game.getyLoc() + "\n");
+         */
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-
     }
 
 }
