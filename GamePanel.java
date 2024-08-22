@@ -99,7 +99,7 @@ public class GamePanel extends JPanel {
                     // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto
                     // TODO sulle stesse coordinate)
                     toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
-                    // punto che punta al cibo
+                    // ? punto che punta al cibo
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
                         toCibo.remove(0);
                     }
@@ -123,10 +123,6 @@ public class GamePanel extends JPanel {
         ant = new Formica(new Punto(xBase, yBase, false));
         ant.GenerateNewGoal();
         Formiche.add(ant);
-    }
-
-    private void GenerateFood() {
-        food.add(new Punto(rand.nextInt(panelWidth), rand.nextInt(panelHeight), false));
     }
 
     private void DrawAnt(Graphics g, Formica ant) {
@@ -215,7 +211,7 @@ public class GamePanel extends JPanel {
         }
 
         if (x != panelWidth && y != panelHeight) {
-            if (ant.getX() == x && ant.getY() == y) {
+            if (DistanzaFra(ant.posizione, new Punto(x, y, false)) <= 5) {
                 toCibo.remove(index); // Stesso discorso per quanto riguarda FindBestToHomeDot() riguardo la rimozione
                                       // dei punti invece di farli evitare
             }
@@ -244,7 +240,8 @@ public class GamePanel extends JPanel {
         }
 
         if (x != panelWidth && y != panelHeight) {
-            if (ant.getX() == x && ant.getY() == y) { // TODO Meglio l'if per non considerare punti già utilizzati
+            if (DistanzaFra(ant.posizione, new Punto(x, y, false)) <= 5) { // TODO Meglio l'if per non considerare punti
+                                                                           // già utilizzati
                 toCasa.remove(index); // Io preferirei non eliminare il punto che punta a casa ma semplicemente
             } // farlo ignorare a questa formica, ma non so come fare senza usare un'altra
               // lista
