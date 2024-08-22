@@ -3,6 +3,7 @@ package Formiche;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,10 @@ public class GamePanel extends JPanel {
 
     private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 150; // ? Numero massimo di pallini per ogni lista
+
+    // ? Queste due righe servono per avere le coordinate del mouse
+    private int mouseX = 0;
+    private int mouseY = 0;
 
     private int randXAdder = 0; // ? Con queste due variabili aggiungo un valore casuale compreso
     private int randYAdder = 0; // ? tra -5 e 5 alle coordinate del punto da seguire
@@ -66,6 +71,12 @@ public class GamePanel extends JPanel {
             DrawAnt(g, ant); // ? Disegno la formica
         }
 
+        // ? Disegno un cerchio bianco intorno al mouse
+        g.setColor(Color.WHITE);
+        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
+        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
+        g.drawOval(mouseX, mouseY, antRadius, antRadius);
+
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
             g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
@@ -93,8 +104,6 @@ public class GamePanel extends JPanel {
                 }
 
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
-                    // TODO Potrei fare che la formica genera un punto al cibo solo quando segue i
-                    // TODO punti rossi
 
                     // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto
                     // TODO sulle stesse coordinate)
