@@ -21,6 +21,8 @@ public class GamePanel extends JPanel {
 
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
 
+    public static int maxFood = 8000;
+
     static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
     private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
@@ -73,10 +75,11 @@ public class GamePanel extends JPanel {
 
         // ? Disegno un cerchio bianco intorno al mouse
         g.setColor(Color.WHITE);
-        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
-        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
-        g.drawOval(mouseX, mouseY, antRadius, antRadius);
+        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
+        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
+        g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
 
+        //? Disegno il cibo
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
             g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
@@ -274,7 +277,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private double DistanzaFra(Punto a, Punto b) {
+    public static double DistanzaFra(Punto a, Punto b) {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
 }

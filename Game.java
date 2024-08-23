@@ -15,7 +15,9 @@ public class Game implements Runnable {
         gameWindow = new GameWindow(gamePanel);
 
         gamePanel.requestFocus();
+        gamePanel.addMouseMotionListener(new MouseInput()); // ? Aggiungo il mouse motion listener al gamePanel
         gamePanel.addMouseListener(new MouseInput()); // ? Aggiungo il mouse listener al gamePanel
+        gamePanel.addMouseWheelListener(new MouseInput());  //? Aggiungo il wheel listener al gamePanel
         startGameLoop();
     }
 
@@ -45,12 +47,11 @@ public class Game implements Runnable {
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                // ! System.out.println("FPS: " + frames); togliere il commento se si vuole
-                // ! vedere il numero di FPS
+                // ! System.out.println("FPS: " + frames); togliere il commento se si vuole vedere il numero di FPS
                 frames = 0;
 
-                xLoc = (int) gamePanel.getLocationOnScreen().getX(); // ? Mi dice le coordinate del punto in
-                yLoc = (int) gamePanel.getLocationOnScreen().getY(); // ? alto a sinistra del gamePanel
+                xLoc = (int) gamePanel.getLocationOnScreen().getX(); // ? Mi dice le coordinate del punto in alto a sinistra del gamePanel
+                yLoc = (int) gamePanel.getLocationOnScreen().getY();
             }
         }
     }
