@@ -27,7 +27,7 @@ public class GamePanel extends JPanel {
     static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
     private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
-    private int maxDots = 150; // ? Numero massimo di pallini per ogni lista
+    private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
 
     // ? Queste due righe servono per avere le coordinate del mouse
     private int mouseX = 0;
@@ -81,11 +81,11 @@ public class GamePanel extends JPanel {
         g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
 
         //? Disegno le scritte
-        g.drawString("Ants: " + Formiche.size(), 3, 15);
-        g.drawString("Food on screen: " + food.size(), 3, 30);
+        g.drawString("Ants: " + Formiche.size() + "/" + maxAnts, 3, 15);
+        g.drawString("Food on screen: " + food.size() + "/" + maxFood, 3, 30);
         g.drawString("Food collected: " + foodCollected, 3, 45);
-        g.drawString("Dots to home: " + toCasa.size(), 3, 60);
-        g.drawString("Dots to food: " + toCibo.size(), 3, 75);
+        g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
+        g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
 
         //? Disegno il cibo
         g.setColor(Color.GREEN);
