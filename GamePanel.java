@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -40,7 +42,8 @@ public class GamePanel extends JPanel {
     List<Formica> Formiche = new ArrayList<>(); // ? Questo è l'array che mi contiene tutte le formiche
     List<Punto> toCasa = new ArrayList<>(); // ? Contiene tutti i punti che indicano il formicaio
     List<Punto> toCibo = new ArrayList<>(); // ? Contiene tutti i punti che indicano il cibo
-    public static List<Punto> food = new ArrayList<>(); // ? Contiene il cibo
+    public static Set<Punto> food = new HashSet<>(); // ? Contiene il cibo, ma è un set
+    List<Punto> listFood = new ArrayList<>();   //? Contiene il cibo, ma è una lista
 
     Formica ant = new Formica(new Punto(0, 0, false)); // ? Una formica in generale
 
@@ -79,8 +82,10 @@ public class GamePanel extends JPanel {
 
         //? Disegno il cibo
         g.setColor(Color.GREEN);
-        for (int i = 0; i < food.size(); i++) {
-            g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
+        //? Per ottenere un certo elemento a un certo indice devo convertire il set in una lista
+        listFood = new ArrayList<>(food);
+        for (int i = 0; i < listFood.size(); i++) {
+            g.fillOval((int) listFood.get(i).getX(), (int) listFood.get(i).getY(), antRadius, antRadius);
         }
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
@@ -97,10 +102,10 @@ public class GamePanel extends JPanel {
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
-                    if (ant.getX() == food.get(j).getX() && ant.getY() == food.get(j).getY()) {
+                    if (ant.getX() == listFood.get(j).getX() && ant.getY() == listFood.get(j).getY()) {
                         ant.SetHasFood(true);
                         // ! Qui decido se avere cibo infinito o meno
-                        food.remove(j);
+                        food.remove(ant.posizione);
                     }
                 }
 
@@ -194,9 +199,9 @@ public class GamePanel extends JPanel {
     private void MoveToFood() {
 
         for (int i = 0; i < food.size(); i++) { // ? Controllo se nel raggio di ricerca della formica si trova del cibo
-            if (DistanzaFra(ant.posizione, food.get(i)) < Formica.antSearchRadius) {
-                ant.setxGoal(food.get(i).getX());
-                ant.setyGoal(food.get(i).getY());
+            if (DistanzaFra(ant.posizione, listFood.get(i)) < Formica.antSearchRadius) {
+                ant.setxGoal(listFood.get(i).getX());
+                ant.setyGoal(listFood.get(i).getY());
                 break;
             } else if (i == food.size() - 1) {
                 FindClosestFood(ant); // ? Trovo il punto per cibo più vicino alla formica
