@@ -43,7 +43,7 @@ public class GamePanel extends JPanel {
     List<Punto> toCasa = new ArrayList<>(); // ? Contiene tutti i punti che indicano il formicaio
     List<Punto> toCibo = new ArrayList<>(); // ? Contiene tutti i punti che indicano il cibo
     public static Set<Punto> food = new HashSet<>(); // ? Contiene il cibo, ma è un set
-    List<Punto> listFood = new ArrayList<>();   //? Contiene il cibo, ma è una lista
+    public static List<Punto> listFood = new ArrayList<>();   //? Contiene il cibo, ma è una lista
 
     Formica ant = new Formica(new Punto(0, 0, false)); // ? Una formica in generale
 
