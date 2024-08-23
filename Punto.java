@@ -16,8 +16,8 @@ public class Punto {
         } else {
 
             for (int i = 0; i < GamePanel.food.size(); i++) {
-                if (Math.sqrt(Math.pow(x - GamePanel.listFood.get(i).getX(), 2) + Math.pow(y - GamePanel.listFood.get(i).getY(), 2)) < intensity) {
-                    intensity = Math.sqrt(Math.pow(x - GamePanel.listFood.get(i).getX(), 2) + Math.pow(y - GamePanel.listFood.get(i).getY(), 2));
+                if (Math.sqrt(Math.pow(x - GamePanel.food.get(i).getX(), 2) + Math.pow(y - GamePanel.food.get(i).getY(), 2)) < intensity) {
+                    intensity = Math.sqrt(Math.pow(x - GamePanel.food.get(i).getX(), 2) + Math.pow(y - GamePanel.food.get(i).getY(), 2));
                 }
             }
         }
