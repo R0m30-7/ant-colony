@@ -73,12 +73,13 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             int cibo = 0;
 
             for(int i = 0; i < GamePanel.food.size(); i++){
-                if(GamePanel.DistanzaFra(new Punto(GamePanel.food.get(i).getX() + GamePanel.antRadius / 2, GamePanel.food.get(i).getY() + GamePanel.antRadius / 2, false), new Punto(xMouse, yMouse, false)) < getMouseCircleRadius() / 2){
+                if(GamePanel.DistanzaFra(new Punto(GamePanel.food.get(i).getX() + (GamePanel.antRadius / 2), GamePanel.food.get(i).getY() + (GamePanel.antRadius / 2), false), new Punto(xMouse, yMouse, false)) < (getMouseCircleRadius() / 2)){
+                    GamePanel.food.remove(i);
                     cibo++;
                 }
             }
 
-            System.out.println("Quantità di cibo presente all'interno del cerchio: " + cibo);
+            System.out.println("Quantità di cibo eliminato: " + cibo);
         }
     }
 
