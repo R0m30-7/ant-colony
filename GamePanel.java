@@ -61,37 +61,38 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) { // Scrivo in questo void le cose che voglio disegnare
         super.paintComponent(g);
 
-        g.setColor(Color.YELLOW);
-        g.fillOval(xBase, yBase, 4, 4); // ? In queste due righe disegno l'uscita del formicaio
-
-        for (int i = 0; i < Formiche.size(); i++) { // ? Itero ogni formica sullo schermo
-            ant = Formiche.get(i);
-
-            MoveAnt(ant); // ? Muovo la formica, o a caso, o se ha il cibo verso il prossimo pallino che
-                          // ? indica l'ingresso del formicaio
-
-            DrawDots(g, toCasa, toCibo);
-            DrawAnt(g, ant); // ? Disegno la formica
-        }
-
-        // ? Disegno un cerchio bianco intorno al mouse
-        g.setColor(Color.WHITE);
-        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
-        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
-        g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
-
-        //? Disegno le scritte
-        g.drawString("Ants: " + Formiche.size() + "/" + maxAnts, 3, 15);
-        g.drawString("Food on screen: " + food.size() + "/" + maxFood, 3, 30);
-        g.drawString("Food collected: " + foodCollected, 3, 45);
-        g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
-        g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
-
+        DrawDots(g, toCasa, toCibo);    //? Disegno i punti verso casa e verso il cibo
+        
         //? Disegno il cibo
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
             g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
         }
+
+        for (int i = 0; i < Formiche.size(); i++) { // ? Itero ogni formica sullo schermo
+            ant = Formiche.get(i);
+            
+            MoveAnt(ant); // ? Muovo la formica, o a caso, o se ha il cibo verso il prossimo pallino che
+            // ? indica l'ingresso del formicaio
+            DrawAnt(g, ant); // ? Disegno la formica
+        }
+        
+        g.setColor(Color.YELLOW);
+        g.fillOval(xBase, yBase, 4, 4); // ? In queste due righe disegno l'uscita del formicaio
+        
+        // ? Disegno un cerchio bianco intorno al mouse
+        g.setColor(Color.WHITE);
+        mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
+        mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
+        g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
+        
+        //? Disegno le scritte
+        g.setColor(Color.WHITE);
+        g.drawString("Ants: " + Formiche.size() + "/" + maxAnts, 3, 15);
+        g.drawString("Food on screen: " + food.size() + "/" + maxFood, 3, 30);
+        g.drawString("Food collected: " + foodCollected, 3, 45);
+        g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
+        g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
 
