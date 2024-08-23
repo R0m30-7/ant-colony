@@ -21,6 +21,8 @@ public class GamePanel extends JPanel {
 
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
 
+    public static int maxFood = 8000;
+
     static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
     private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
