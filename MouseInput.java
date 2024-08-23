@@ -79,7 +79,6 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
 
         //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
         if(multiplier >= 8){
@@ -122,7 +121,6 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // TODO Auto-generated method stub/*  */
         int rot = e.getWheelRotation();
 
         //? Il multiplier deve essere compreso tra 1 e 8
@@ -174,7 +172,6 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -187,19 +184,15 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
 
     }
 }
