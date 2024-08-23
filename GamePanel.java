@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
 
     public static int maxFood = 8000;
+    private int foodCollected = 0;
 
     static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
@@ -79,6 +80,13 @@ public class GamePanel extends JPanel {
         mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
         g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
 
+        //? Disegno le scritte
+        g.drawString("Ants: " + Formiche.size(), 3, 15);
+        g.drawString("Food on screen: " + food.size(), 3, 30);
+        g.drawString("Food collected: " + foodCollected, 3, 45);
+        g.drawString("Dots to home: " + toCasa.size(), 3, 60);
+        g.drawString("Dots to food: " + toCibo.size(), 3, 75);
+
         //? Disegno il cibo
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
@@ -92,9 +100,10 @@ public class GamePanel extends JPanel {
 
             for (int i = 0; i < Formiche.size(); i++) { // ? Itero per ogni formica
                 ant = Formiche.get(i);
-
+                //? Controllo se la formica è al formicaio e se ha del cibo
                 if (ant.getX() == xBase && ant.getY() == yBase && ant.getHasFood()) {
                     Formiche.remove(ant); // ? Rimuovo la formica se si trova sul formicaio con del cibo
+                    foodCollected++;
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
