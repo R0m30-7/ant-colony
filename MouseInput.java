@@ -66,6 +66,19 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                     }
                 }
             }
+        } else if(e.getButton() == 3){
+            // ? Rimuovo il cibo che si trova all'interno del cerchio bianco
+            int xMouse = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
+            int yMouse = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
+            int cibo = 0;
+
+            for(int i = 0; i < GamePanel.food.size(); i++){
+                if(GamePanel.DistanzaFra(new Punto(GamePanel.food.get(i).getX() + GamePanel.antRadius / 2, GamePanel.food.get(i).getY() + GamePanel.antRadius / 2, false), new Punto(xMouse, yMouse, false)) < getMouseCircleRadius() / 2){
+                    cibo++;
+                }
+            }
+
+            System.out.println("Quantità di cibo presente all'interno del cerchio: " + cibo);
         }
     }
 
