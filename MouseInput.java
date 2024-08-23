@@ -25,12 +25,10 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
         // ? Considero il tasto sinistro
         if (e.getButton() == 1) {
             //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
-            if(multiplier == 8){
+            if(multiplier >= 8){
                 return;
             }
             xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
@@ -66,7 +64,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                     }
                 }
             }
-        } else if(e.getButton() == 3){
+        } else if(e.getButton() == 3 && multiplier <= 8){
             // ? Rimuovo il cibo che si trova all'interno del cerchio bianco
             int xMouse = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc();
             int yMouse = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
@@ -88,7 +86,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         // TODO Auto-generated method stub
 
         //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
-        if(multiplier == 8){
+        if(multiplier >= 8){
             return;
         }
         xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
@@ -186,7 +184,10 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
+        if(getMouseCircleRadius() < 1 || getMouseCircleRadius() > 8 && multiplier > 8){
+            mouseCircleRadius = GamePanel.antRadius;
+            multiplier = 1;
+        }
     }
 
     @Override
