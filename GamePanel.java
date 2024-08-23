@@ -95,7 +95,6 @@ public class GamePanel extends JPanel {
 
                 if (ant.getX() == xBase && ant.getY() == yBase && ant.getHasFood()) {
                     Formiche.remove(ant); // ? Rimuovo la formica se si trova sul formicaio con del cibo
-                    // GenerateFood(); // ? Genero del cibo in posizione randomica
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
@@ -194,15 +193,26 @@ public class GamePanel extends JPanel {
     }
 
     private void MoveToFood() {
+        double distanza = panelHeight * panelWidth;
+        double min = panelHeight * panelWidth;
+        double x = 0, y = 0;
 
         for (int i = 0; i < food.size(); i++) { // ? Controllo se nel raggio di ricerca della formica si trova del cibo
-            if (DistanzaFra(ant.posizione, food.get(i)) < Formica.antSearchRadius) {
-                ant.setxGoal(food.get(i).getX());
-                ant.setyGoal(food.get(i).getY());
-                break;
-            } else if (i == food.size() - 1) {
-                FindClosestFood(ant); // ? Trovo il punto per cibo più vicino alla formica
+            distanza = DistanzaFra(ant.posizione, food.get(i));
+            if (distanza < Formica.antSearchRadius) {
+                if(distanza < min){
+                    min = distanza;
+                    x = food.get(i).getX();
+                    y = food.get(i).getY();
+                }
+
             }
+        }
+        if(min != panelHeight * panelWidth){
+            ant.setxGoal(x);
+            ant.setyGoal(y);
+        } else {
+            FindClosestFood(ant); // ? Trovo il punto per cibo più vicino alla formica
         }
     }
 
