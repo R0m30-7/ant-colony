@@ -277,7 +277,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private double DistanzaFra(Punto a, Punto b) {
+    public static double DistanzaFra(Punto a, Punto b) {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
 }
