@@ -27,9 +27,12 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
 
-        // ? Considero il tasto sinitro
+        // ? Considero il tasto sinistro
         if (e.getButton() == 1) {
-
+            //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
+            if(multiplier == 8){
+                return;
+            }
             xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
             ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
 
@@ -43,7 +46,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                         if(GamePanel.food.get(i).getX() == xSpawn && GamePanel.food.get(i).getY() == ySpawn){
                             break;
                         }
-                        if(i == GamePanel.food.size() - 1){
+                        //? Non voglio più di maxFood cibo
+                        if(i == GamePanel.food.size() - 1 && GamePanel.food.size() < GamePanel.maxFood){
                             GamePanel.food.add(new Punto(xSpawn, ySpawn, false));
                         }
                     }
@@ -62,7 +66,6 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                     }
                 }
             }
-        // System.out.println("Dim lista: " + GamePanel.food.size());
         }
     }
 
@@ -70,6 +73,10 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     public void mouseDragged(MouseEvent e) {
         // TODO Auto-generated method stub
 
+        //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
+        if(multiplier == 8){
+            return;
+        }
         xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
         ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
 
@@ -83,7 +90,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                     if(GamePanel.food.get(i).getX() == xSpawn && GamePanel.food.get(i).getY() == ySpawn){
                         break;
                     }
-                    if(i == GamePanel.food.size() - 1){
+                    //? Non voglio più di maxFood cibo
+                    if(i == GamePanel.food.size() - 1 && GamePanel.food.size() < GamePanel.maxFood){
                         GamePanel.food.add(new Punto(xSpawn, ySpawn, false));
                     }
                 }
@@ -109,8 +117,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         // TODO Auto-generated method stub/*  */
         int rot = e.getWheelRotation();
 
-        //? Il multiplier deve essere compreso tra 1 e 7
-        if(multiplier == 1 && rot == 1 || multiplier == 7 && rot == -1){
+        //? Il multiplier deve essere compreso tra 1 e 8
+        if(multiplier == 1 && rot == 1 || multiplier == 8 && rot == -1){
             return;
         }
         multiplier -= e.getWheelRotation();
@@ -127,10 +135,9 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     private void SpawnCircles(int mult, boolean toCheck){
         int x = 0, y = 0;
-        // System.out.println("Mult: " + mult);
 
         for(int i = 0; i < CirclesToSpawn(mult) - CirclesToSpawn(mult - 1); i++){
-            if(mult == 1){
+            if(mult == 1 && GamePanel.food.size() < GamePanel.maxFood){
                 GamePanel.food.add(new Punto(xSpawn, ySpawn, false));
             } else{
                 x = (int) (xSpawn + Math.cos(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.antRadius * mult) / 2));
@@ -141,7 +148,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                         if(GamePanel.food.get(j).getX() == x && GamePanel.food.get(j).getY() == y){
                             break;
                         }
-                        if(j == GamePanel.food.size() - 1){
+                        //? Non voglio più di maxFood cibo
+                        if(j == GamePanel.food.size() - 1 && GamePanel.food.size() < GamePanel.maxFood){
                             GamePanel.food.add(new Punto(x, y, false));
                         }
                     }
@@ -159,7 +167,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-
+        System.out.println("Numero di cibo : " + GamePanel.food.size());
     }
 
     @Override
