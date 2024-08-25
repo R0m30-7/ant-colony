@@ -87,14 +87,7 @@ public class GamePanel extends JPanel {
         g.drawOval(mouseX - MouseInput.getMouseCircleRadius()/2, mouseY - MouseInput.getMouseCircleRadius()/2, MouseInput.getMouseCircleRadius(), MouseInput.getMouseCircleRadius());
         
         //? Disegno le scritte
-        g.setColor(Color.WHITE);
-        g.drawString("Ants: " + Formiche.size() + "/" + maxAnts, 3, 15);
-        g.drawString("Food on screen: " + food.size() + "/" + maxFood, 3, 30);
-        g.drawString("Food collected: " + foodCollected, 3, 45);
-        g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
-        g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
-        g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
-        //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
+        WriteTextOnScreen(g);
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
             panelWidth = (int) GameWindow.getjFrameSize().getWidth() - 16;
@@ -313,6 +306,17 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < toCibo.size(); i++) {
             g.fillOval((int) toCibo.get(i).getX(), (int) toCibo.get(i).getY(), antRadius, antRadius);
         }
+    }
+
+    private void WriteTextOnScreen(Graphics g){
+        g.setColor(Color.WHITE);
+        g.drawString("Ants: " + Formiche.size() + "/" + maxAnts, 3, 15);
+        g.drawString("Food on screen: " + food.size() + "/" + maxFood, 3, 30);
+        g.drawString("Food collected: " + foodCollected, 3, 45);
+        g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
+        g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
+        g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
+        //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
     }
 
     public static double DistanzaFra(Punto a, Punto b) {
