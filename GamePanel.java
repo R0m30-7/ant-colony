@@ -110,6 +110,7 @@ public class GamePanel extends JPanel {
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
                     if (ant.getX() == food.get(j).getX() && ant.getY() == food.get(j).getY()) {
                         ant.SetHasFood(true);
+                        ant.setPosCiboRaccolto(ant.posizione);
                         // ! Qui decido se avere cibo infinito o meno
                         food.remove(j);
                     }
@@ -117,10 +118,9 @@ public class GamePanel extends JPanel {
 
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
 
-                    // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto
-                    // TODO sulle stesse coordinate)
-                    toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
-                    // ? punto che punta al cibo
+                    // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto sulle stesse coordinate)
+                    toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo punto che punta al cibo
+                    toCibo.get(toCibo.size()).setIntensity(DistanzaFra(ant.getPosCiboRaccolto(), ant.posizione));
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
                         toCibo.remove(0);
                     }
