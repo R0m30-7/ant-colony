@@ -10,7 +10,7 @@ public class GameWindow {
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Quando chiudo la finestra interrompe il programma
         jFrame.add(gamePanel);
-        jFrame.setResizable(false);
+        jFrame.setResizable(true);
 
         jFrame.pack();
         jFrame.setVisible(true);
