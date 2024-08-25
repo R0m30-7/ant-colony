@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -28,6 +32,10 @@ public class GamePanel extends JPanel {
 
     private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
+
+    BufferedImage antWithFood = null;
+    BufferedImage antWithOutFood = null;
+    private static boolean loaded = false;  //? Tengo conto se ho già caricato le immagini
 
     // ? Queste due righe servono per avere le coordinate del mouse
     private int mouseX = 0;
@@ -60,6 +68,11 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) { // Scrivo in questo void le cose che voglio disegnare
         super.paintComponent(g);
+
+        if(!loaded){
+            LoadImages(g);
+            g.drawImage(antWithOutFood, 50, 50, null);
+        }
 
         DrawDots(g, toCasa, toCibo);    //? Disegno i punti verso casa e verso il cibo
         
@@ -317,6 +330,20 @@ public class GamePanel extends JPanel {
         g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
         g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
         //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
+    }
+
+    private void LoadImages(Graphics g){
+        try {
+            antWithFood = ImageIO.read(new File("\"D:\\File.vari\\VS.Code\\Java\\Formiche\\antWithFood.png\""));
+        } catch (IOException e) {
+            System.out.println("L'immagine della formica con il cibo non esiste");
+        }
+        try {
+            antWithOutFood = ImageIO.read(new File("\"D:\\File.vari\\VS.Code\\Java\\Formiche\\antWithoutFood.png\""));
+        } catch (IOException e) {
+            System.out.println("L'immagine della formica senza cibo non esiste");
+        }
+        loaded = true;
     }
 
     public static double DistanzaFra(Punto a, Punto b) {
