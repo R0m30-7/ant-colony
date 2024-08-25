@@ -156,11 +156,15 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                         }
                         //? Non voglio più di maxFood cibo
                         if(j == GamePanel.food.size() - 1 && GamePanel.food.size() < GamePanel.maxFood){
-                            GamePanel.food.add(new Punto(x, y, false));
+                            if(x < GamePanel.panelWidth && x > 0 && y < GamePanel.panelHeight && y > 0){
+                                GamePanel.food.add(new Punto(x, y, false));
+                            }
                         }
                     }
                 } else{
-                    GamePanel.food.add(new Punto(x, y, false));
+                    if(x < GamePanel.panelWidth && x > 0 && y < GamePanel.panelHeight && y > 0){
+                        GamePanel.food.add(new Punto(x, y, false));
+                    }
                 }
             }
         }
