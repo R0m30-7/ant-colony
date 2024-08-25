@@ -10,6 +10,8 @@ public class Formica {
 
     private boolean hasFood = false; // ? Determina se la formica sta trasportando del cibo
 
+    private Punto posCiboRaccolto = new Punto(0, 0, false);
+
     Random rand = new Random();
 
     public Formica(Punto pos) {
@@ -74,5 +76,13 @@ public class Formica {
 
     public void setyGoal(double yGoal) {
         this.yGoal = (int) yGoal;
+    }
+
+    public Punto getPosCiboRaccolto() {
+        return posCiboRaccolto;
+    }
+
+    public void setPosCiboRaccolto(Punto posCiboRaccolto) {
+        this.posCiboRaccolto = posCiboRaccolto;
     }
 }
