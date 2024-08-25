@@ -120,7 +120,7 @@ public class GamePanel extends JPanel {
 
                     // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto sulle stesse coordinate)
                     toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo punto che punta al cibo
-                    toCibo.get(toCibo.size()).setIntensity(DistanzaFra(ant.getPosCiboRaccolto(), ant.posizione));
+                    toCibo.get(toCibo.size() - 1).setIntensity(DistanzaFra(ant.getPosCiboRaccolto(), ant.posizione));
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
                         toCibo.remove(0);
                     }
