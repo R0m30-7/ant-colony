@@ -1,9 +1,11 @@
 package Formiche;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 public class GameWindow {
-    private JFrame jFrame;
+    private static JFrame jFrame;
 
     public GameWindow(GamePanel gamePanel) {
         jFrame = new JFrame();
@@ -14,5 +16,9 @@ public class GameWindow {
 
         jFrame.pack();
         jFrame.setVisible(true);
+    }
+
+    public static Dimension getjFrameSize(){
+        return jFrame.getSize();
     }
 }
