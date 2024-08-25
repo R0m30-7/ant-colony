@@ -122,7 +122,7 @@ public class GamePanel extends JPanel {
                     toCibo.addLast(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo punto che punta al cibo
                     toCibo.getLast().setIntensity(DistanzaFra(ant.getPosCiboRaccolto(), ant.posizione));
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
-                        toCibo.remove(0);
+                        toCibo.removeFirst();
                     }
                 } else {
                     toCasa.add(new Punto(ant.getX(), ant.getY(), true));
