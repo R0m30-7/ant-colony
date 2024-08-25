@@ -5,6 +5,7 @@ public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
+    public static int frames = 0;
     private final static int FPSGoal = 60;
 
     private static int xLoc = 0; // ? Mi dice le coordinate del punto in
@@ -32,7 +33,6 @@ public class Game implements Runnable {
         long lastFrame = now;
         long lastCheck = System.currentTimeMillis();
         double timePerFrame = 1000000000 / FPSGoal;
-        int frames = 0;
 
         while (true) {
 
@@ -41,7 +41,6 @@ public class Game implements Runnable {
             if (now - lastFrame > timePerFrame) {
                 gamePanel.repaint();
                 frames++;
-                // System.out.println("Dio cane");
                 lastFrame = now;
             }
 
