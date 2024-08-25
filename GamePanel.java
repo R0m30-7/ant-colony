@@ -93,6 +93,8 @@ public class GamePanel extends JPanel {
         g.drawString("Food collected: " + foodCollected, 3, 45);
         g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
         g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
+        g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
+        //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
 
