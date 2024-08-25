@@ -14,8 +14,8 @@ public class GamePanel extends JPanel {
 
     Random rand = new Random();
 
-    public static int panelWidth = 1300; // ?Larghezza schermo
-    public static int panelHeight = 650; // ?Altezza schermo
+    public static int panelWidth = 1920; // ?Larghezza schermo
+    public static int panelHeight = 1080; // ?Altezza schermo
 
     public static int xBase = 200, yBase = 200; // ? Coordinate dell'uscita del formicaio
 
@@ -97,6 +97,8 @@ public class GamePanel extends JPanel {
         //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
 
         if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
+            panelWidth = (int) GameWindow.getjFrameSize().getWidth() - 16;
+            panelHeight = (int) GameWindow.getjFrameSize().getHeight() - 39;
 
             randXAdder = rand.nextInt(10) - 5;
             randYAdder = rand.nextInt(10) - 5;
