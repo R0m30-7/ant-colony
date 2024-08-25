@@ -14,12 +14,7 @@ public class Punto {
             intensity = Math.sqrt(Math.pow(x - GamePanel.xBase, 2) + Math.pow(GamePanel.yBase, 2));
 
         } else {
-
-            for (int i = 0; i < GamePanel.food.size(); i++) {
-                if (Math.sqrt(Math.pow(x - GamePanel.food.get(i).getX(), 2) + Math.pow(y - GamePanel.food.get(i).getY(), 2)) < intensity) {
-                    intensity = Math.sqrt(Math.pow(x - GamePanel.food.get(i).getX(), 2) + Math.pow(y - GamePanel.food.get(i).getY(), 2));
-                }
-            }
+            // Lo fa automaticamente nel GamePanel
         }
     }
 
@@ -41,5 +36,9 @@ public class Punto {
 
     public double getIntensity() {
         return intensity;
+    }
+
+    public void setIntensity(double intensity) {
+        this.intensity = intensity;
     }
 }
