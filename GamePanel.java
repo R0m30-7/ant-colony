@@ -26,7 +26,7 @@ public class GamePanel extends JPanel {
 
     static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
-    private int maxAnts = 20; // ? Numero massimo di formiche presenti sullo schermo
+    private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
 
     // ? Queste due righe servono per avere le coordinate del mouse
@@ -163,6 +163,8 @@ public class GamePanel extends JPanel {
 
     private void MoveAnt(Formica ant) {
 
+        double velDiag = Math.sqrt(Math.pow(antSpeed, 2) / 2);
+
         if (ant.getXGoal() == ant.getX() && ant.getYGoal() == ant.getY()) { // ? Se ho raggiunto l'obiettivo, ne genero
                                                                             // ? uno nuovo
             ant.GenerateNewGoal();
@@ -174,17 +176,29 @@ public class GamePanel extends JPanel {
             MoveToFood();
         }
 
-        if (ant.getXGoal() > ant.getX()) { // ? Questi due if muovono la formica
-            ant.AddToX(antSpeed);
-        } else if (ant.getXGoal() < ant.getX()) {
-            ant.AddToX(-antSpeed);
-        }
+        if(ant.getXGoal() == ant.getX()){
+            if(ant.getYGoal() > ant.getY()){
+                ant.AddToY(antSpeed/2);     //? Non so perché ma sul movimento verticale la velocità deve essere mezza di quella normale
+            } else if(ant.getYGoal() < ant.getY()){
+                ant.AddToY(-antSpeed/2);
+            }
+        } else if(ant.getYGoal() == ant.getY()){
+            if(ant.getXGoal() > ant.getX()){
+                ant.AddToX(antSpeed);
+            } else if(ant.getXGoal() < ant.getX()){
+                ant.AddToX(-antSpeed);
+            }
+        } else if (ant.getXGoal() > ant.getX()) {
+                ant.AddToX(velDiag);
+            } else if (ant.getXGoal() < ant.getX()) {
+                ant.AddToX(-velDiag);
+            }
 
-        if (ant.getYGoal() > ant.getY()) {
-            ant.AddToY(antSpeed);
-        } else if (ant.getYGoal() < ant.getY()) {
-            ant.AddToY(-antSpeed);
-        }
+            if (ant.getYGoal() > ant.getY()) {
+                ant.AddToY(velDiag);
+            } else if (ant.getYGoal() < ant.getY()) {
+                ant.AddToY(-velDiag);
+            }
     }
 
     private void MoveToHome() {
