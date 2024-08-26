@@ -14,13 +14,13 @@ public class Formica {
 
     public Formica(Punto pos) {
         posizione.setX(pos.getX());
-        posizione.setY(pos.getX());
+        posizione.setY(pos.getY());
     }
 
     public void GenerateNewGoal() {
 
         while (true) {
-            xGoal = (int) posizione.getX() + rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius;
+            xGoal = (int) posizione.getX() + (rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius) / 2;
 
             if (xGoal + GamePanel.dotDiameter * 2 < GamePanel.panelWidth && xGoal > 0) {
                 break;
@@ -28,7 +28,7 @@ public class Formica {
         }
 
         while (true) {
-            yGoal = (int) posizione.getY() + rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius;
+            yGoal = (int) posizione.getY() + (rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius) / 2;
 
             if (yGoal + GamePanel.dotDiameter * 2 < GamePanel.panelHeight && yGoal > 0) {
                 break;
