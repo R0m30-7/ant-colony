@@ -18,7 +18,7 @@ import java.awt.MouseInfo;
 
 public class MouseInput implements MouseInputListener, MouseWheelListener {
 
-    private static int mouseCircleRadius = GamePanel.antRadius;
+    private static int mouseCircleRadius = GamePanel.dotDiameter;
     private static int multiplier = 1;
     protected int xSpawn = 0;
     protected int ySpawn = 0;
@@ -31,8 +31,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             if(multiplier >= 8){
                 return;
             }
-            xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
-            ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
+            xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.dotDiameter / 2;
+            ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.dotDiameter / 2;
 
             if(multiplier == 1){
                 //? Nel caso non ci sia cibo non ho bisogno di controllare se ci sono doppioni
@@ -70,7 +70,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             int yMouse = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc();
 
             for(int i = 0; i < GamePanel.food.size(); i++){
-                if(GamePanel.DistanzaFra(new Punto(GamePanel.food.get(i).getX() + (GamePanel.antRadius / 2), GamePanel.food.get(i).getY() + (GamePanel.antRadius / 2), false), new Punto(xMouse, yMouse, false)) < (getMouseCircleRadius() / 2)){
+                if(GamePanel.DistanzaFra(new Punto(GamePanel.food.get(i).getX() + (GamePanel.dotDiameter / 2), GamePanel.food.get(i).getY() + (GamePanel.dotDiameter / 2), false), new Punto(xMouse, yMouse, false)) < (getMouseCircleRadius() / 2)){
                     GamePanel.food.remove(i);
                 }
             }
@@ -84,8 +84,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         if(multiplier >= 8){
             return;
         }
-        xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.antRadius / 2;
-        ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.antRadius / 2;
+        xSpawn = (int) MouseInfo.getPointerInfo().getLocation().getX() - Game.getxLoc() - GamePanel.dotDiameter / 2;
+        ySpawn = (int) MouseInfo.getPointerInfo().getLocation().getY() - Game.getyLoc() - GamePanel.dotDiameter / 2;
 
         if(multiplier == 1){
             //? Nel caso non ci sia cibo non ho bisogno di controllare se ci sono doppioni
@@ -128,7 +128,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             return;
         }
         multiplier -= e.getWheelRotation();
-        mouseCircleRadius = GamePanel.antRadius * multiplier;
+        mouseCircleRadius = GamePanel.dotDiameter * multiplier;
     }
 
     private int CirclesToSpawn(int mult){
@@ -146,8 +146,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             if(mult == 1 && GamePanel.food.size() < GamePanel.maxFood){
                 GamePanel.food.add(new Punto(xSpawn, ySpawn, false));
             } else{
-                x = (int) (xSpawn + Math.cos(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.antRadius * mult) / 2));
-                y = (int) (ySpawn + Math.sin(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.antRadius * mult) / 2));
+                x = (int) (xSpawn + Math.cos(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
+                y = (int) (ySpawn + Math.sin(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
                 //? Questo for serve per non aggiungere il cibo su delle coordinate in cui è presente già del cibo
                 if(toCheck){
                     for(int j = 0; j < GamePanel.food.size(); j++){
@@ -181,7 +181,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         if(getMouseCircleRadius() < 1 || getMouseCircleRadius() > 8 && multiplier > 8){
-            mouseCircleRadius = GamePanel.antRadius;
+            mouseCircleRadius = GamePanel.dotDiameter;
             multiplier = 1;
         }
     }
