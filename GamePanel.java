@@ -327,19 +327,20 @@ public class GamePanel extends JPanel {
     }
 
     private void LoadImages(Graphics g){
-        System.out.println(System.getProperty("user.dir"));
+        //! Quando compilo in un file jar, la directory delle immagini dovrà contenere solo il nome e l'estensione, come nell'esempio: pathname:"antWithFood.png"
+        //System.out.println(System.getProperty("user.dir"));
         File file = new File("Java\\Formiche\\antWithFood.png");
         
         try {
             antWithFood = ImageIO.read(file);
         } catch (IOException e) {
-            System.out.println("L'immagine della formica con il cibo non esiste");
+            //System.out.println("L'immagine della formica con il cibo non esiste");
         }
         file = new File("Java\\Formiche\\antWithoutFood.png");
         try {
             antWithOutFood = ImageIO.read(file);
         } catch (IOException e) {
-            System.out.println("L'immagine della formica senza cibo non esiste");
+            //System.out.println("L'immagine della formica senza cibo non esiste");
         }
         loaded = true;
     }
