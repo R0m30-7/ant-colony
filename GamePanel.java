@@ -3,7 +3,9 @@ package Formiche;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,11 +26,13 @@ public class GamePanel extends JPanel {
     public static int xBase = 200, yBase = 200; // ? Coordinate dell'uscita del formicaio
 
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
+    double antWidth = 0.75;  //? La grandezza dell'immagine della formica, originariamente è 64x64, che trasformando diventa antWidth * 64
+    double antHeight = antWidth;
 
     public static int maxFood = 8000;
     private int foodCollected = 0;
 
-    static int antRadius = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
+    static int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
     private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
@@ -68,10 +72,10 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) { // Scrivo in questo void le cose che voglio disegnare
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
 
         if(!loaded){
             LoadImages(g);
-            g.drawImage(antWithOutFood, 50, 50, null);
         }
 
         DrawDots(g, toCasa, toCibo);    //? Disegno i punti verso casa e verso il cibo
@@ -79,7 +83,7 @@ public class GamePanel extends JPanel {
         //? Disegno il cibo
         g.setColor(Color.GREEN);
         for (int i = 0; i < food.size(); i++) {
-            g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), antRadius, antRadius);
+            g.fillOval((int) food.get(i).getX(), (int) food.get(i).getY(), dotDiameter, dotDiameter);
         }
 
         for (int i = 0; i < Formiche.size(); i++) { // ? Itero ogni formica sullo schermo
@@ -87,7 +91,7 @@ public class GamePanel extends JPanel {
             
             MoveAnt(ant); // ? Muovo la formica, o a caso, o se ha il cibo verso il prossimo pallino che
             // ? indica l'ingresso del formicaio
-            DrawAnt(g, ant); // ? Disegno la formica
+            DrawAnt(ant, g2d); // ? Disegno la formica
         }
         
         g.setColor(Color.YELLOW);
@@ -156,19 +160,25 @@ public class GamePanel extends JPanel {
         Formiche.add(ant);
     }
 
-    private void DrawAnt(Graphics g, Formica ant) {
-        if (ant.getHasFood()) { // ? Il colore della formica senza cibo è nero, con il cibo è marrone
-            g.setColor(brown);
+    private void DrawAnt(Formica ant, Graphics2D g2d) {
+        AffineTransform transform = new AffineTransform();
+
+        transform.translate(ant.getX() - antWidth, ant.getY() - antHeight);
+        transform.rotate(Math.toRadians(45), antWidth / 2, antHeight / 2);
+        transform.scale((double) antWidth, (double) antHeight);
+
+        if (ant.getHasFood()) {
+            g2d.drawImage(antWithFood, transform, null);
         } else {
-            g.setColor(Color.BLACK);
+            g2d.drawImage(antWithOutFood, transform, null);
         }
-        g.fillOval(ant.getX() - antRadius, ant.getY() - antRadius, antRadius * 2, antRadius * 2);
-        /*
-         * g.setColor(Color.WHITE);
-         * g.drawOval(ant.getX() - Formica.antSearchRadius, ant.getY() -
-         * Formica.antSearchRadius,
-         * Formica.antSearchRadius * 2, Formica.antSearchRadius * 2);
-         */
+        g2d.setColor(Color.WHITE);
+        g2d.fillOval(ant.getX(), ant.getY(), 2, 2);
+
+        /* g.setColor(Color.WHITE);
+        g.drawOval(ant.getX() - Formica.antSearchRadius, ant.getY() -
+        Formica.antSearchRadius,
+        Formica.antSearchRadius * 2, Formica.antSearchRadius * 2); */
     }
 
     private void MoveAnt(Formica ant) {
@@ -309,7 +319,7 @@ public class GamePanel extends JPanel {
     private void DrawDots(Graphics g, List<Punto> toCasa, List<Punto> toCibo) {
         g.setColor(Color.RED);
         for (int i = 0; i < toCasa.size(); i++) {
-            g.fillOval((int) toCasa.get(i).getX(), (int) toCasa.get(i).getY(), antRadius, antRadius);
+            g.fillOval((int) toCasa.get(i).getX() - dotDiameter / 2, (int) toCasa.get(i).getY() - dotDiameter / 2, dotDiameter, dotDiameter);
         }
 
         g.setColor(Color.BLUE);
@@ -317,7 +327,7 @@ public class GamePanel extends JPanel {
             toCibo.clear();
         }
         for (int i = 0; i < toCibo.size(); i++) {
-            g.fillOval((int) toCibo.get(i).getX(), (int) toCibo.get(i).getY(), antRadius, antRadius);
+            g.fillOval((int) toCibo.get(i).getX() - dotDiameter / 2, (int) toCibo.get(i).getY() - dotDiameter / 2, dotDiameter, dotDiameter);
         }
     }
 
@@ -333,13 +343,17 @@ public class GamePanel extends JPanel {
     }
 
     private void LoadImages(Graphics g){
+        System.out.println(System.getProperty("user.dir"));
+        File file = new File("Java\\Formiche\\antWithFood.png");
+        
         try {
-            antWithFood = ImageIO.read(new File("\"D:\\File.vari\\VS.Code\\Java\\Formiche\\antWithFood.png\""));
+            antWithFood = ImageIO.read(file);
         } catch (IOException e) {
             System.out.println("L'immagine della formica con il cibo non esiste");
         }
+        file = new File("Java\\Formiche\\antWithoutFood.png");
         try {
-            antWithOutFood = ImageIO.read(new File("\"D:\\File.vari\\VS.Code\\Java\\Formiche\\antWithoutFood.png\""));
+            antWithOutFood = ImageIO.read(file);
         } catch (IOException e) {
             System.out.println("L'immagine della formica senza cibo non esiste");
         }
