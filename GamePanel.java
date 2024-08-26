@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
     public static int panelWidth = 1920; // ?Larghezza schermo
     public static int panelHeight = 1080; // ?Altezza schermo
 
-    public static int xBase = 200, yBase = 200; // ? Coordinate dell'uscita del formicaio
+    public static int xBase = 960, yBase = 540; // ? Coordinate dell'uscita del formicaio
 
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
     double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
@@ -121,7 +121,7 @@ public class GamePanel extends JPanel {
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
-                    if (ant.getX() >= food.get(j).getX() - 3 && ant.getX() <= food.get(j).getX() + 3 && ant.getY() >= food.get(j).getY() - 3 && ant.getY() <= food.get(j).getY() + 3) {
+                    if (ant.getX() >= food.get(j).getX() - 3 && ant.getX() <= food.get(j).getX() + 3 && ant.getY() >= food.get(j).getY() - 3 && ant.getY() <= food.get(j).getY() + 3 && !ant.getHasFood()) {
                         ant.SetHasFood(true);
                         // ! Qui decido se avere cibo infinito o meno
                         food.remove(j);
@@ -182,10 +182,10 @@ public class GamePanel extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.fillOval(ant.getX(), ant.getY(), 2, 2);
 
-        /* g.setColor(Color.WHITE);
-        g.drawOval(ant.getX() - Formica.antSearchRadius, ant.getY() -
-        Formica.antSearchRadius,
-        Formica.antSearchRadius * 2, Formica.antSearchRadius * 2); */
+        /*
+        g.setColor(Color.WHITE);
+        g.drawOval(ant.getX() - Formica.antSearchRadius, ant.getY() - Formica.antSearchRadius, Formica.antSearchRadius * 2, Formica.antSearchRadius * 2);
+        */
     }
 
     private void MoveAnt(Formica ant) {
