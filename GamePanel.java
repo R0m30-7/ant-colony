@@ -26,15 +26,14 @@ public class GamePanel extends JPanel {
     public static int xBase = 200, yBase = 200; // ? Coordinate dell'uscita del formicaio
 
     double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
-    double antWidth = 0.75;  //? La grandezza dell'immagine della formica, originariamente è 64x64, che trasformando diventa antWidth * 64
-    double antHeight = antWidth;
+    double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
 
     public static int maxFood = 8000;
     private int foodCollected = 0;
 
     static int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
-    private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
+    private int maxAnts = 1; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
@@ -161,11 +160,20 @@ public class GamePanel extends JPanel {
     }
 
     private void DrawAnt(Formica ant, Graphics2D g2d) {
+        double theta = 0;
         AffineTransform transform = new AffineTransform();
 
-        transform.translate(ant.getX() - antWidth, ant.getY() - antHeight);
-        transform.rotate(Math.toRadians(45), antWidth / 2, antHeight / 2);
-        transform.scale((double) antWidth, (double) antHeight);
+        //System.out.println("Old x: " + ant.getLastPos().getX() + ", y: " + ant.getLastPos().getY() + "\nx: " + ant.getX() + ", y: " + ant.getY());
+        theta = Math.atan2(ant.getYGoal() - ant.getY(), ant.getXGoal() - ant.getX()) + Math.toRadians(90);  //? Punta direttamente al goal
+        // TODO theta = Math.atan2(ant.getLastPos().getY() - ant.getY(), ant.getLastPos().getX() - ant.getX()) + Math.toRadians(90); //? Utilizza l'ultima posizione per calcolare la direzione
+        //! Servono per debug
+        g2d.setColor(Color.WHITE);
+        //g2d.drawString(String.valueOf(Math.toDegrees(theta)), ant.getX(), ant.getY() - 5);
+        g2d.fillOval(ant.getXGoal() - dotDiameter / 2, ant.getYGoal() - dotDiameter / 2, dotDiameter, dotDiameter);
+
+        transform.translate(ant.getX() - antWithFood.getWidth() * antDimenMult / 2, ant.getY() - antWithFood.getHeight() * antDimenMult / 2);
+        transform.scale(antDimenMult, antDimenMult);
+        transform.rotate(theta, antWithFood.getWidth() / 2, antWithFood.getHeight() / 2);
 
         if (ant.getHasFood()) {
             g2d.drawImage(antWithFood, transform, null);
