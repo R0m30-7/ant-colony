@@ -6,7 +6,7 @@ public class Formica {
     public Punto posizione = new Punto(0, 0, false);
     private int xGoal = 0, yGoal = 0; // ? L'obiettivo random che la formica deve raggiungere
 
-    public static int antSearchRadius = 60 + GamePanel.antRadius; // ? In pixel, è il raggio entro cui la formica "vede"
+    public static int antSearchRadius = 60 + GamePanel.dotDiameter; // ? In pixel, è il raggio entro cui la formica "vede"
 
     private boolean hasFood = false; // ? Determina se la formica sta trasportando del cibo
 
@@ -14,23 +14,23 @@ public class Formica {
 
     public Formica(Punto pos) {
         posizione.setX(pos.getX());
-        posizione.setY(pos.getX());
+        posizione.setY(pos.getY());
     }
 
     public void GenerateNewGoal() {
 
         while (true) {
-            xGoal = (int) posizione.getX() + rand.nextInt(GamePanel.antRadius * antSearchRadius * 2) - GamePanel.antRadius * antSearchRadius;
+            xGoal = (int) posizione.getX() + (rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius) / 2;
 
-            if (xGoal + GamePanel.antRadius * 2 < GamePanel.panelWidth && xGoal > 0) {
+            if (xGoal + GamePanel.dotDiameter * 2 < GamePanel.panelWidth && xGoal > 0) {
                 break;
             }
         }
 
         while (true) {
-            yGoal = (int) posizione.getY() + rand.nextInt(GamePanel.antRadius * antSearchRadius * 2) - GamePanel.antRadius * antSearchRadius;
+            yGoal = (int) posizione.getY() + (rand.nextInt(GamePanel.dotDiameter * antSearchRadius * 2) - GamePanel.dotDiameter * antSearchRadius) / 2;
 
-            if (yGoal + GamePanel.antRadius * 2 < GamePanel.panelHeight && yGoal > 0) {
+            if (yGoal + GamePanel.dotDiameter * 2 < GamePanel.panelHeight && yGoal > 0) {
                 break;
             }
         }
