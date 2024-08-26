@@ -33,7 +33,7 @@ public class GamePanel extends JPanel {
 
     static int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
-    private int maxAnts = 1; // ? Numero massimo di formiche presenti sullo schermo
+    private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
     private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
@@ -115,13 +115,13 @@ public class GamePanel extends JPanel {
             for (int i = 0; i < Formiche.size(); i++) { // ? Itero per ogni formica
                 ant = Formiche.get(i);
                 //? Controllo se la formica è al formicaio e se ha del cibo
-                if (ant.getX() == xBase && ant.getY() == yBase && ant.getHasFood()) {
+                if (ant.getX() >= xBase - 3 && ant.getX() <= xBase + 3 && ant.getY() >= yBase - 3 && ant.getY() <= yBase + 3 && ant.getHasFood()) {
                     Formiche.remove(ant); // ? Rimuovo la formica se si trova sul formicaio con del cibo
                     foodCollected++;
                 }
 
                 for (int j = 0; j < food.size(); j++) { // ? Se la formica si trova sul cibo, lo raccoglie
-                    if (ant.getX() == food.get(j).getX() && ant.getY() == food.get(j).getY()) {
+                    if (ant.getX() >= food.get(j).getX() - 3 && ant.getX() <= food.get(j).getX() + 3 && ant.getY() >= food.get(j).getY() - 3 && ant.getY() <= food.get(j).getY() + 3) {
                         ant.SetHasFood(true);
                         // ! Qui decido se avere cibo infinito o meno
                         food.remove(j);
@@ -130,8 +130,7 @@ public class GamePanel extends JPanel {
 
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
 
-                    // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto
-                    // TODO sulle stesse coordinate)
+                    // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto sulle stesse coordinate)
                     toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
                     // ? punto che punta al cibo
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
@@ -190,11 +189,11 @@ public class GamePanel extends JPanel {
     }
 
     private void MoveAnt(Formica ant) {
+        double theta = 0;
+        double velX = 0;
+        double velY = 0;
 
-        double velDiag = Math.sqrt(Math.pow(antSpeed, 2) / 2);
-
-        if (ant.getXGoal() == ant.getX() && ant.getYGoal() == ant.getY()) { // ? Se ho raggiunto l'obiettivo, ne genero
-                                                                            // ? uno nuovo
+        if (ant.getXGoal() == ant.getX() && ant.getYGoal() == ant.getY()) { // ? Se ho raggiunto l'obiettivo, ne genero uno nuovo
             ant.GenerateNewGoal();
         }
         if (ant.getHasFood()) { // ? Se la formica sta trasportando del cibo
@@ -204,39 +203,16 @@ public class GamePanel extends JPanel {
             MoveToFood();
         }
 
-        if(ant.getXGoal() == ant.getX()){
-            if(ant.getYGoal() > ant.getY()){
-                ant.AddToY(antSpeed/2);     //? Non so perché ma sul movimento verticale la velocità deve essere mezza di quella normale
-            } else if(ant.getYGoal() < ant.getY()){
-                ant.AddToY(-antSpeed/2);
-            }
-        } else if(ant.getYGoal() == ant.getY()){
-            if(ant.getXGoal() > ant.getX()){
-                ant.AddToX(antSpeed);
-            } else if(ant.getXGoal() < ant.getX()){
-                ant.AddToX(-antSpeed);
-            }
-        } else if (ant.getXGoal() > ant.getX()) {
-                ant.AddToX(velDiag);
-            } else if (ant.getXGoal() < ant.getX()) {
-                ant.AddToX(-velDiag);
-            }
-
-            if (ant.getYGoal() > ant.getY()) {
-                ant.AddToY(velDiag);
-            } else if (ant.getYGoal() < ant.getY()) {
-                ant.AddToY(-velDiag);
-            }
+        theta = Math.atan2(ant.getYGoal() - ant.getY(), ant.getXGoal() - ant.getX());
+        velX = antSpeed * Math.cos(theta);
+        velY = antSpeed * Math.sin(theta);
+        
+        ant.AddToX(velX);
+        ant.AddToY(velY);
     }
 
     private void MoveToHome() {
-        if (DistanzaFra(ant.posizione, new Punto(xBase, yBase, false)) < Formica.antSearchRadius) { // ? Se la distanza
-                                                                                                    // fra la formica e
-                                                                                                    // l'ingresso del
-                                                                                                    // formicaio è
-                                                                                                    // all'interno del
-                                                                                                    // suo
-                                                                                                    // raggio di ricerca
+        if (DistanzaFra(ant.posizione, new Punto(xBase, yBase, false)) < Formica.antSearchRadius) { // ? Se la distanza fra la formica e l'ingresso del formicaio è all'interno del suo raggio di ricerca
             ant.setxGoal(xBase);
             ant.setyGoal(yBase);
         } else {
