@@ -20,8 +20,8 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     private static int mouseCircleRadius = GamePanel.dotDiameter;
     private static int multiplier = 1;
-    protected int xSpawn = 0;
-    protected int ySpawn = 0;
+    protected static int xSpawn = 0;
+    protected static int ySpawn = 0;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -55,12 +55,12 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
                 //? Nel caso non ci sia cibo non ho bisogno di controllare se ci sono doppioni
                 if(GamePanel.food.size() == 0){
                     for(int i = 0; i < multiplier; i++){
-                        SpawnCircles(multiplier - i, false);
+                        SpawnFood(multiplier - i, false);
                     }
                 } else{
-                    //? SpawnCircles() spawna solo i punti di cibo più esterni del cerchio
+                    //? SpawnFood() spawna solo i punti di cibo più esterni del cerchio
                     for(int i = 0; i < multiplier; i++){
-                        SpawnCircles(multiplier - i, true);
+                        SpawnFood(multiplier - i, true);
                     }
                 }
             }
@@ -108,12 +108,12 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
             //? Nel caso non ci sia cibo non ho bisogno di controllare se ci sono doppioni
             if(GamePanel.food.size() == 0){
                 for(int i = 0; i < multiplier; i++){
-                    SpawnCircles(multiplier - i, false);
+                    SpawnFood(multiplier - i, false);
                 }
             } else{
-                //? SpawnCircles() spawna solo i punti di cibo più esterni del cerchio
+                //? SpawnFood() spawna solo i punti di cibo più esterni del cerchio
                 for(int i = 0; i < multiplier; i++){
-                    SpawnCircles(multiplier - i, true);
+                    SpawnFood(multiplier - i, true);
                 }
             }
         }        
@@ -131,7 +131,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         mouseCircleRadius = GamePanel.dotDiameter * multiplier;
     }
 
-    private int CirclesToSpawn(int mult){
+    private static int FoodToSpawn(int mult){
         if(mult != 0){
             return (int) Math.pow((mult - 1) * 2 + 1, 2);
         } else{
@@ -139,15 +139,15 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         }
     }
 
-    private void SpawnCircles(int mult, boolean toCheck){
+    public static void SpawnFood(int mult, boolean toCheck){
         int x = 0, y = 0;
 
-        for(int i = 0; i < CirclesToSpawn(mult) - CirclesToSpawn(mult - 1); i++){
+        for(int i = 0; i < FoodToSpawn(mult) - FoodToSpawn(mult - 1); i++){
             if(mult == 1 && GamePanel.food.size() < GamePanel.maxFood){
                 GamePanel.food.add(new Punto(xSpawn, ySpawn, false));
             } else{
-                x = (int) (xSpawn + Math.cos(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
-                y = (int) (ySpawn + Math.sin(Math.toRadians(i * 360 / (CirclesToSpawn(mult) - CirclesToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
+                x = (int) (xSpawn + Math.cos(Math.toRadians(i * 360 / (FoodToSpawn(mult) - FoodToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
+                y = (int) (ySpawn + Math.sin(Math.toRadians(i * 360 / (FoodToSpawn(mult) - FoodToSpawn(mult - 1)))) * ((GamePanel.dotDiameter * mult) / 2));
                 //? Questo for serve per non aggiungere il cibo su delle coordinate in cui è presente già del cibo
                 if(toCheck){
                     for(int j = 0; j < GamePanel.food.size(); j++){
