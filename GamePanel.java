@@ -31,13 +31,13 @@ public class GamePanel extends JPanel {
     protected static final int maxFood = 8000; // 8000
     private int foodCollected = 0;
     private final int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
-    private final int maxTimeToSpawnFood = 18001; //? Il tempo che intercorre tra lo spawn del cibo
+    private final int maxTimeToSpawnFood = 45001; //? Il tempo che intercorre tra lo spawn del cibo
     private int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
 
     static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta i pallini, in pixel
 
     private final int maxAnts = 35; // 35
-    private final int maxDots = 600; // ? Numero massimo di pallini per ogni lista
+    private final int maxDots = 800; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
     BufferedImage antWithOutFood = null;
