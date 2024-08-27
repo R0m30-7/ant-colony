@@ -5,7 +5,8 @@ public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    public static int frames = 0;
+    private static int frames = 0;
+    protected static int FPSToDisplay = 0;
     private final static int FPSGoal = 60;
 
     private static int xLoc = 0; // ? Mi dice le coordinate del punto in
@@ -35,7 +36,6 @@ public class Game implements Runnable {
         double timePerFrame = 1000000000 / FPSGoal;
 
         while (true) {
-
             // FPS counter
             now = System.nanoTime();
             if (now - lastFrame > timePerFrame) {
@@ -47,6 +47,7 @@ public class Game implements Runnable {
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
                 // ! System.out.println("FPS: " + frames);  //!  togliere il commento se si vuole vedere il numero di FPS
+                FPSToDisplay = frames;
                 frames = 0;
 
                 xLoc = (int) gamePanel.getLocationOnScreen().getX(); // ? Mi dice le coordinate del punto in alto a sinistra del gamePanel
