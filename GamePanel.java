@@ -20,24 +20,24 @@ public class GamePanel extends JPanel {
 
     Random rand = new Random();
 
-    public static int panelWidth = 1920; // ?Larghezza schermo
-    public static int panelHeight = 1080; // ?Altezza schermo
+    protected static int panelWidth = 1920; // ?Larghezza schermo
+    protected static int panelHeight = 1080; // ?Altezza schermo
 
-    public static int xBase = 960, yBase = 540; // ? Coordinate dell'uscita del formicaio
+    protected static int xBase = 960, yBase = 540; // ? Coordinate dell'uscita del formicaio
 
-    double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
-    double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
+    final double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
+    final double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
 
-    public static int maxFood = 8000;
+    protected static final int maxFood = 8000;
     private int foodCollected = 0;
-    int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
-    int maxTimeToSpawnFood = 7000; //? Il tempo che intercorre tra lo spawn del cibo
-    int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
+    private final int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
+    private final int maxTimeToSpawnFood = 7000; //? Il tempo che intercorre tra lo spawn del cibo
+    private int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
 
-    static int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
+    static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
-    private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
-    private int maxDots = 400; // ? Numero massimo di pallini per ogni lista
+    private final int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
+    private final int maxDots = 400; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
     BufferedImage antWithOutFood = null;
@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
     List<Formica> Formiche = new ArrayList<>(); // ? Questo è l'array che mi contiene tutte le formiche
     List<Punto> toCasa = new ArrayList<>(); // ? Contiene tutti i punti che indicano il formicaio
     List<Punto> toCibo = new ArrayList<>(); // ? Contiene tutti i punti che indicano il cibo
-    public static List<Punto> food = new ArrayList<>(); // ? Contiene il cibo
+    protected static List<Punto> food = new ArrayList<>(); // ? Contiene il cibo
 
     Formica ant = new Formica(new Punto(0, 0, false)); // ? Una formica in generale
 
@@ -86,7 +86,7 @@ public class GamePanel extends JPanel {
             MouseInput.xSpawn = rand.nextInt(panelWidth + 1);
             MouseInput.ySpawn = rand.nextInt(panelHeight + 1);
             for(int i = 0; i < mult; i++){
-                MouseInput.SpawnFood(mult - i, true);
+                MouseInput.SpawnFood(mult - i, false);
             }
         } else{
             timeToSpawnFood--;
