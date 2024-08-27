@@ -28,16 +28,16 @@ public class GamePanel extends JPanel {
     final double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
     final double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
 
-    protected static final int maxFood = 16000; // 8000
+    protected static final int maxFood = 8000; // 8000
     private int foodCollected = 0;
     private final int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
-    private final int maxTimeToSpawnFood = 7000; //? Il tempo che intercorre tra lo spawn del cibo
+    private final int maxTimeToSpawnFood = 18001; //? Il tempo che intercorre tra lo spawn del cibo
     private int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
 
     static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta i pallini, in pixel
 
     private final int maxAnts = 35; // 35
-    private final int maxDots = 400; // ? Numero massimo di pallini per ogni lista
+    private final int maxDots = 600; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
     BufferedImage antWithOutFood = null;
@@ -152,15 +152,15 @@ public class GamePanel extends JPanel {
                 if (ant.getHasFood()) { // ? Genero i punti verso il cibo o verso la casa
 
                     // TODO Devo fare in modo che tutti i punti siano unici (non più di un punto sulle stesse coordinate)
-                    toCibo.add(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
+                    toCibo.addFirst(new Punto(ant.getX(), ant.getY(), false)); // ? Aggiungo un nuovo
                     // ? punto che punta al cibo
                     if (toCibo.size() > maxDots) { // ? Se ci sono troppi punti, ne rimuovo alcuni
-                        toCibo.remove(0);
+                        toCibo.removeLast();
                     }
                 } else {
-                    toCasa.add(new Punto(ant.getX(), ant.getY(), true));
+                    toCasa.addFirst(new Punto(ant.getX(), ant.getY(), true));
                     if (toCasa.size() > maxDots) {
-                        toCasa.remove(0);
+                        toCasa.removeLast();
                     }
                 }
             }
