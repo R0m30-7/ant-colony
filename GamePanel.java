@@ -30,11 +30,14 @@ public class GamePanel extends JPanel {
 
     public static int maxFood = 8000;
     private int foodCollected = 0;
+    int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
+    int maxTimeToSpawnFood = 7000; //? Il tempo che intercorre tra lo spawn del cibo
+    int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
 
     static int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
 
     private int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
-    private int maxDots = 200; // ? Numero massimo di pallini per ogni lista
+    private int maxDots = 400; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
     BufferedImage antWithOutFood = null;
@@ -75,6 +78,18 @@ public class GamePanel extends JPanel {
 
         if(!loaded){
             LoadImages(g);
+        }
+
+        //? Genero del cibo randomicamente
+        if(rand.nextInt(timeToSpawnFood) == 0 && food.size() < maxFood){   // Con 18001 spawna il cibo ogni 5 minuti in media
+            timeToSpawnFood = maxTimeToSpawnFood;
+            MouseInput.xSpawn = rand.nextInt(panelWidth + 1);
+            MouseInput.ySpawn = rand.nextInt(panelHeight + 1);
+            for(int i = 0; i < mult; i++){
+                MouseInput.SpawnFood(mult - i, true);
+            }
+        } else{
+            timeToSpawnFood--;
         }
 
         DrawDots(g, toCasa, toCibo);    //? Disegno i punti verso casa e verso il cibo
@@ -179,8 +194,8 @@ public class GamePanel extends JPanel {
         } else {
             g2d.drawImage(antWithOutFood, transform, null);
         }
-        g2d.setColor(Color.WHITE);
-        g2d.fillOval(ant.getX(), ant.getY(), 2, 2);
+        /* g2d.setColor(Color.WHITE);
+        g2d.fillOval(ant.getX(), ant.getY(), 2, 2); */
 
         /*
         g.setColor(Color.WHITE);
@@ -323,6 +338,7 @@ public class GamePanel extends JPanel {
         g.drawString("Dots to home: " + toCasa.size() + "/" + maxDots, 3, 60);
         g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
         g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
+        g.drawString("Time to food spawn: " + timeToSpawnFood, 3, 105);
         //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
     }
 
