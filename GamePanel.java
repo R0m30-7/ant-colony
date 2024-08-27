@@ -28,15 +28,15 @@ public class GamePanel extends JPanel {
     final double antSpeed = 40; // ? Velocità della formica misurata in pixel al secondo
     final double antDimenMult = 0.75;  //? Il moltiplicatore dell'immagine della formica, originariamente è 64x64, che trasformando diventa antDimenMult * 64
 
-    protected static final int maxFood = 8000;
+    protected static final int maxFood = 16000; // 8000
     private int foodCollected = 0;
     private final int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
     private final int maxTimeToSpawnFood = 7000; //? Il tempo che intercorre tra lo spawn del cibo
     private int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
 
-    static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta la formica, in pixel
+    static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta i pallini, in pixel
 
-    private final int maxAnts = 35; // ? Numero massimo di formiche presenti sullo schermo
+    private final int maxAnts = 35; // 35
     private final int maxDots = 400; // ? Numero massimo di pallini per ogni lista
 
     BufferedImage antWithFood = null;
@@ -49,6 +49,9 @@ public class GamePanel extends JPanel {
 
     private int randXAdder = 0; // ? Con queste due variabili aggiungo un valore casuale compreso
     private int randYAdder = 0; // ? tra -5 e 5 alle coordinate del punto da seguire
+
+    protected static int FPSToDisplay = 0;  //? Visualizzo gli FPS a schermo
+    private static long lastSec = System.nanoTime();    //? Salva il secondo precedente
 
     int cicli = 0;
 
@@ -120,7 +123,10 @@ public class GamePanel extends JPanel {
         //? Disegno le scritte
         WriteTextOnScreen(g);
 
-        if (cicli == Game.getFPSGoal()) { // ? Entro in questo if una volta al secondo
+        if (System.nanoTime() - lastSec > 1000000000) { // ? Entro in questo if una volta al secondo
+            lastSec = System.nanoTime();
+            FPSToDisplay = cicli;
+
             panelWidth = (int) GameWindow.getjFrameSize().getWidth() - 16;
             panelHeight = (int) GameWindow.getjFrameSize().getHeight() - 39;
 
@@ -339,7 +345,7 @@ public class GamePanel extends JPanel {
         g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
         g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
         g.drawString("Time to food spawn: " + timeToSpawnFood, 3, 105);
-        g.drawString("FPS: " + Game.FPSToDisplay, panelWidth - 45, 15);
+        g.drawString("FPS: " + FPSToDisplay, panelWidth - 45, 15);
     }
 
     private void LoadImages(Graphics g){
