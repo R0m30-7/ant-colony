@@ -339,7 +339,7 @@ public class GamePanel extends JPanel {
         g.drawString("Dots to food: " + toCibo.size() + "/" + maxDots, 3, 75);
         g.drawString("Dimension: " + panelWidth + " x " + panelHeight, 3, 90);
         g.drawString("Time to food spawn: " + timeToSpawnFood, 3, 105);
-        //g.drawString("FPS: " + Game.frames, panelWidth - 45, 15);
+        g.drawString("FPS: " + Game.FPSToDisplay, panelWidth - 45, 15);
     }
 
     private void LoadImages(Graphics g){
