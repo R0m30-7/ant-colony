@@ -131,7 +131,7 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
         mouseCircleRadius = GamePanel.dotDiameter * multiplier;
     }
 
-    private static int FoodToSpawn(int mult){
+    public static int FoodToSpawn(int mult){
         if(mult != 0){
             return (int) Math.pow((mult - 1) * 2 + 1, 2);
         } else{
