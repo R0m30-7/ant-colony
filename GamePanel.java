@@ -84,14 +84,14 @@ public class GamePanel extends JPanel {
         }
 
         //? Genero del cibo randomicamente
-        if(rand.nextInt(timeToSpawnFood) == 0 && food.size() < maxFood){   // Con 18001 spawna il cibo ogni 5 minuti in media
+        if(rand.nextInt(timeToSpawnFood) == 0 && food.size() == 0){   // Con 18001 spawna il cibo ogni 5 minuti in media
             timeToSpawnFood = maxTimeToSpawnFood;
             MouseInput.xSpawn = rand.nextInt(panelWidth + 1);
             MouseInput.ySpawn = rand.nextInt(panelHeight + 1);
             for(int i = 0; i < mult; i++){
                 MouseInput.SpawnFood(mult - i, false);
             }
-        } else{
+        } else if(timeToSpawnFood > 1){
             timeToSpawnFood--;
         }
 
