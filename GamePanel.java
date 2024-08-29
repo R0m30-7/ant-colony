@@ -55,8 +55,6 @@ public class GamePanel extends JPanel {
 
     int cicli = 0;
 
-    Color brown = new Color(150, 75, 0);
-
     List<Formica> Formiche = new ArrayList<>(); // ? Questo è l'array che mi contiene tutte le formiche
     List<Punto> toCasa = new ArrayList<>(); // ? Contiene tutti i punti che indicano il formicaio
     List<Punto> toCibo = new ArrayList<>(); // ? Contiene tutti i punti che indicano il cibo
@@ -311,8 +309,7 @@ public class GamePanel extends JPanel {
         }
 
         if (x != panelWidth && y != panelHeight) {
-            if (DistanzaFra(ant.posizione, new Punto(x, y, false)) <= 5) { // TODO Meglio l'if per non considerare punti
-                                                                           // già utilizzati
+            if (DistanzaFra(ant.posizione, new Punto(x, y, false)) <= 5) { // TODO Meglio l'if per non considerare punti già utilizzati
                 toCasa.remove(index); // Io preferirei non eliminare il punto che punta a casa ma semplicemente
             } // farlo ignorare a questa formica, ma non so come fare senza usare un'altra
               // lista
