@@ -13,7 +13,7 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //? Se viene premuto lo spazio
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             if(!Game.getisPaused()){
                 Game.setPaused(true);
             } else {
