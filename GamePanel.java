@@ -33,6 +33,7 @@ public class GamePanel extends JPanel {
     private final int mult = 7;   //? Serve nella parte dove spawno il cibo randomicamente
     private final int maxTimeToSpawnFood = 45001; //? Il tempo che intercorre tra lo spawn del cibo
     private int timeToSpawnFood = maxTimeToSpawnFood;   //? Serve nella parte dove spawno il cibo randomicamente, è la variabile che diminuisce
+    public static boolean spawnRandomFood = true;   //? Decide se spawnare il cibo o no
 
     static final int dotDiameter = 7; // ? Il raggio del cerchio che rappresenta i pallini, in pixel
 
@@ -89,7 +90,7 @@ public class GamePanel extends JPanel {
             for(int i = 0; i < mult; i++){
                 MouseInput.SpawnFood(mult - i, false);
             }
-        } else if(timeToSpawnFood > 1){
+        } else if(timeToSpawnFood > 1 && spawnRandomFood){
             timeToSpawnFood--;
         }
 
