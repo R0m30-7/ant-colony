@@ -25,6 +25,9 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if(Game.getisPaused()){
+            return;
+        }
         // ? Considero il tasto sinistro
         if (e.getButton() == 1) {
             //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
@@ -79,7 +82,9 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        if(Game.getisPaused()){
+            return;
+        }
         //? Il raggio massimo con cui posso spawnare il cibo è 7, se è 8 non lo devo fare
         if(multiplier >= 8){
             return;
@@ -121,6 +126,9 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
     
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        if(Game.getisPaused()){
+            return;
+        }
         int rot = e.getWheelRotation();
 
         //? Il multiplier deve essere compreso tra 1 e 8
@@ -180,6 +188,9 @@ public class MouseInput implements MouseInputListener, MouseWheelListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        if(Game.getisPaused()){
+            return;
+        }
         if(getMouseCircleRadius() < 1 || getMouseCircleRadius() > 8 && multiplier > 8){
             mouseCircleRadius = GamePanel.dotDiameter;
             multiplier = 1;
