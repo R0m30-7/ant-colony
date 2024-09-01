@@ -4,7 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInput implements KeyListener {
+    private GameWindow gameWindow;
 
+    public KeyboardInput(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
+    }
+    
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -16,18 +21,16 @@ public class KeyboardInput implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             if(!Game.getisPaused()){
                 Game.setPaused(true);
+                gameWindow.showMenu();
             } else {
                 Game.setPaused(false);
+                gameWindow.hideMenu();
             }
         }
 
         //? Se viene premuto K
         if(e.getKeyCode() == KeyEvent.VK_K){
-            if(!GamePanel.spawnRandomFood){
-                GamePanel.spawnRandomFood = true;
-            } else {
-                GamePanel.spawnRandomFood = false;
-            }
+            GamePanel.spawnRandomFood = !GamePanel.spawnRandomFood;
         }
     }
 
