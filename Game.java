@@ -19,7 +19,7 @@ public class Game implements Runnable {
         gamePanel.addMouseMotionListener(new MouseInput()); // ? Aggiungo il mouse motion listener al gamePanel
         gamePanel.addMouseListener(new MouseInput()); // ? Aggiungo il mouse listener al gamePanel
         gamePanel.addMouseWheelListener(new MouseInput());  //? Aggiungo il wheel listener al gamePanel
-        gamePanel.addKeyListener(new KeyboardInput());  //? Aggiungo il keyboard listener al gamePanel
+        gamePanel.addKeyListener(new KeyboardInput(gameWindow));  //? Aggiungo il keyboard listener al gamePanel
         startGameLoop();
     }
 
@@ -39,9 +39,11 @@ public class Game implements Runnable {
             // FPS counter
             now = System.nanoTime();
             if (now - lastFrame > timePerFrame) {
+                //? Se il gioco non è in pausa
                 if(!isPaused){
                     gamePanel.repaint();
                 }
+
                 lastFrame = now;
             }
 
